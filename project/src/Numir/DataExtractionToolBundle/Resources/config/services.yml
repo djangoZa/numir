@@ -1,0 +1,49 @@
+services:
+    #Application
+    app.webdriver:
+        class: RemoteWebDriver
+        arguments:
+            host: "%webdriver_host%"
+            capabilities:
+                browserName: "firefox"
+    app.db:
+        class: Zend\Db\Adapter\Adapter
+        arguments:
+            options:
+                driver: "%numir_database_driver%"
+                database: "%numir_database_name%"
+                username: "%numir_database_username%"
+                password: "%numir_database_password%"
+                hostname: "%numir_database_hostname%"
+                port: "%numir_database_port%"
+
+    #Supplier
+    supplier.gateway.microglobal.helper:
+        class: Numir\DataExtractionToolBundle\Classes\Supplier\Gateway\MicroGlobal\Helper
+        arguments: ["@app.webdriver"]
+    supplier.gateway.aircomputers.helper:
+        class: Numir\DataExtractionToolBundle\Classes\Supplier\Gateway\AirComputers\Helper
+        arguments: ["@app.webdriver"]
+    supplier.gateway.microglobal:
+        class: Numir\DataExtractionToolBundle\Classes\Supplier\Gateway\MicroGlobal
+        arguments: ["@supplier.gateway.microglobal.helper"]
+    supplier.gateway.aircomputers:
+        class: Numir\DataExtractionToolBundle\Classes\Supplier\Gateway\AirComputers
+        arguments: ["@supplier.gateway.aircomputers.helper"]
+    supplier.repository:
+        class: Numir\DataExtractionToolBundle\Classes\Supplier\Repository
+        arguments: ["@supplier.gateway.aircomputers", "@supplier.gateway.microglobal"]
+    supplier.service:
+        class: Numir\DataExtractionToolBundle\Classes\Supplier\Service
+        arguments: ["@supplier.repository"]
+
+    #Product
+    product.gateway:
+        class: Numir\DataExtractionToolBundle\Classes\Product\Gateway
+        arguments: ["@app.db"]
+    product.repository:
+        class: Numir\DataExtractionToolBundle\Classes\Product\Repository
+        arguments: ["@product.gateway"]
+    product.service:
+        class: Numir\DataExtractionToolBundle\Classes\Product\Service
+        arguments: ["@product.repository"]

@@ -1,0 +1,9 @@
+imports:
+    - {resource: parameters.yml}
+
+parameters:
+    numir_database_name: "numir"
+    numir_database_username: "root"
+    numir_database_password: "root"
+    numir_database_hostname: "192.168.0.115"
+    numir_database_port: "3306"

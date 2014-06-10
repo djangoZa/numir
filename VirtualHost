@@ -1,0 +1,14 @@
+<VirtualHost *:80>
+    ServerName numir.com
+    ServerAlias dev.numir.com
+    ServerAlias localhost
+    DocumentRoot /var/www/numir
+    <Directory /var/www/numir>
+        # enable the .htaccess rewrites
+        AllowOverride All
+        Order allow,deny
+        Allow from All
+    </Directory>
+    ErrorLog /var/log/apache2/numir-error.log
+    CustomLog /var/log/apache2/numir-access.log combined
+</VirtualHost>

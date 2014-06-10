@@ -1,0 +1,4 @@
+#Dashboard
+numir_data_extraction_tool_index:
+    path: /products/{supplier}
+    defaults: {_controller: NumirDataExtractionToolBundle:Product:index}

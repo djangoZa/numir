@@ -1,0 +1,12 @@
+default:
+    context:
+        parameters:
+            base_url: http://localhost
+    extensions:
+        Behat\Symfony2Extension\Extension: ~
+        Behat\MinkExtension\Extension:
+            default_session: selenium2
+            browser_name: firefox
+            goutte: ~
+            selenium2:
+                wd_host: http://127.0.0.1:4444/wd/hub

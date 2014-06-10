@@ -1,0 +1,3 @@
+numir_data_extraction_tool:
+    resource: "@NumirDataExtractionToolBundle/Resources/config/routing.yml"
+    prefix: /
